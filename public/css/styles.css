@@ -1,6 +1,223 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
+
+
+/* ===== Reset & Box Model ===== */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+
+/* ===== Base ===== */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  line-height: 1.5;
+  background: #fff url("/images/site/checkerboard.jpg") repeat;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* ===== Wrapper (white card) ===== */
+#wrapper {
+  max-width: 960px;
+  width: 100%;
+  background-color: #fff;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+
+/* ===== Header ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+header h1 { font-size: 1.8rem; }
+header a { font-size: 0.8rem; text-transform: uppercase; color: #444; text-decoration: none; }
+
+/* ===== Navigation ===== */
+nav { background-color: #1e1d29; }
+nav ul { list-style: none; display: flex; justify-content: space-around; padding: 0; margin: 0; }
+nav ul li a {
+  display: block;
+  padding: 0.8rem 2rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background-color .3s ease, color .3s ease;
+}
+nav ul li a:hover { background-color: #00a0d6; color: #fff; }
+
+/* ===== HERO: overlay on image (single, unified rules) ===== */
+.hero {
+  position: relative;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+}
+
+/* Overlay box with title, features and button */
+.hero-text {
+  position: absolute;
+  top: 18%;
+  left: 5%;
+  background: rgba(255,255,255,0.90);
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  max-width: 300px;
+  text-align: left;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.hero-text h2 { color: #00a0d6; font-size: 1.35rem; margin-bottom: .35rem; }
+.hero-text ul { list-style: none; padding: 0; margin: .3rem 0; }
+.hero-text ul li { margin: .25rem 0; color: #333; }
+
+/* Own Today button inside overlay */
+.hero-text .btn-own {
+  display: inline-block;
+  margin-top: .6rem;
+  padding: .6rem 1rem;
+  background-color: #00a0d6;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 700;
+  transition: background-color .18s ease;
+}
+.hero-text .btn-own:hover { background-color: #007a9e; }
+
+/* ===== Delorean Section (Upgrades + Reviews) ===== */
+.delorean-section {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Upgrades grid */
+.upgrades ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.upgrades li {
+  background-color: #00a0d6;
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+.upgrades img {
+  max-width: 64px;
+  display: block;
+  margin: 0 auto 0.5rem;
+}
+
+/* Reviews */
+.reviews ul { list-style: disc; padding-left: 1.5rem; }
+.reviews li { margin-bottom: .5rem; }
+
+
+/*  vehicles */
+/* Vehicle Grid */
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.vehicle-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.vehicle-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* Footer */
+footer {
+  margin-top: 2rem;
+  font-size: .8rem;
+  text-align: center;
+  color: #555;
+}
+
+/* ===== Responsive rules ===== */
+@media (max-width: 768px) {
+  nav ul li a { padding: 0.6rem 1rem; }
+  .delorean-section { grid-template-columns: 1fr; }
+
+  /* Switch to a two-column flow: text (left) + image (right) */
+  .hero {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.2rem 0;
+  }
+  .hero img {
+    width: 55%;
+    max-width: 260px;
+    order: 2;
+    border-radius: 6px;
+  }
+  .hero-text {
+    position: static;
+    order: 1;
+    width: 42%;
+    max-width: none;
+    background: rgba(255,255,255,0.96);
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    box-shadow: none;
+    text-align: left;
+  }
+}
+
+/* ===== Extra small screens (phones) ===== */
+@media (max-width: 480px) {
+  /* Stack elements vertically instead of side by side */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero img {
+    width: 90%;   /* take most of the width */
+    max-width: 320px;
+    order: 2;     /* image below */
+    margin-top: 0.8rem;
+  }
+
+  .hero-text {
+    order: 1;     /* text on top */
+    width: 100%;  /* full width */
+    margin: 0 auto;
+    text-align: center;
+    background: rgba(255,255,255,0.95);
+    box-shadow: none;
+  }
 }
