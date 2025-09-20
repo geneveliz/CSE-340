@@ -133,7 +133,7 @@ nav ul li a:hover { background-color: #00a0d6; color: #fff; }
 .reviews li { margin-bottom: .5rem; }
 
 
-/*  vehicles */
+
 /* Vehicle Grid */
 .vehicle-grid {
   display: grid;
@@ -197,7 +197,6 @@ footer {
 
 /* ===== Extra small screens (phones) ===== */
 @media (max-width: 480px) {
-  /* Stack elements vertically instead of side by side */
   .hero {
     display: flex;
     flex-direction: column;
@@ -206,15 +205,15 @@ footer {
   }
 
   .hero img {
-    width: 90%;   /* take most of the width */
+    width: 90%;   
     max-width: 320px;
-    order: 2;     /* image below */
+    order: 2;     
     margin-top: 0.8rem;
   }
 
   .hero-text {
-    order: 1;     /* text on top */
-    width: 100%;  /* full width */
+    order: 1;     
+    width: 100%;  
     margin: 0 auto;
     text-align: center;
     background: rgba(255,255,255,0.95);
