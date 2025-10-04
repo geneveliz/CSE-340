@@ -1,22 +1,50 @@
 const invModel = require("../models/inventory-model")
-const utilities = require("../utilities/")
+const Util = require("../utilities/index") // adjust path as needed
 
-const invCont = {}
-
-/* ***************************
- *  Build inventory by classification view
- * ************************** */
-invCont.buildByClassificationId = async function (req, res, next) {
-  const classification_id = req.params.classificationId
-  const data = await invModel.getInventoryByClassificationId(classification_id)
-  const grid = await utilities.buildClassificationGrid(data)
-  let nav = await utilities.getNav()
-  const className = data[0].classification_name
-  res.render("./inventory/classification", {
-    title: className + " vehicles",
-    nav,
-    grid,
-  })
+/* Show inventory by classification (you may already have this in your project;
+   include this so the controller is complete) */
+async function buildByClassificationId(req, res, next) {
+  try {
+    const classificationId = parseInt(req.params.classificationId, 10)
+    const data = await invModel.getInventoryByClassificationId(classificationId)
+    const grid = await Util.buildClassificationGrid(data)
+    res.render("inventory/classification", {
+      title: "Inventory",
+      grid,
+      nav: res.locals.nav // or pass nav variable you use
+    })
+  } catch (err) {
+    next(err)
+  }
 }
 
-module.exports = invCont
+/* Detail view for a specific inventory item by inv_id */
+async function buildByInvId(req, res, next) {
+  try {
+    const invId = parseInt(req.params.invId, 10)
+    if (Number.isNaN(invId)) {
+      return res.status(400).render("errors/400", { title: "Invalid request", message: "Invalid vehicle id" })
+    }
+
+    const vehicle = await invModel.getVehicleById(invId)
+    if (!vehicle) {
+      // 404 via error view (assignment expects 404 view)
+      return res.status(404).render("errors/404", { title: "Not Found", message: "Vehicle not found" })
+    }
+
+    const vehicleDetailHtml = Util.buildVehicleDetail(vehicle)
+
+    // Title must display make and model (assignment requirement)
+    const title = `${vehicle.inv_make} ${vehicle.inv_model}`
+
+    res.render("inventory/detail", {
+      title,
+      nav: res.locals.nav,
+      vehicleDetailHtml
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
+module.exports = {buildByClassificationId,buildByInvId}
