@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const router = express.Router()
 
-// ✅ Static Routes: correcta configuración de carpetas
+// correcta configuración de carpetas
 router.use(express.static(path.join(__dirname, '..', 'public')))
 router.use('/css', express.static(path.join(__dirname, '..', 'public/css')))
 router.use('/js', express.static(path.join(__dirname, '..', 'public/js')))
