@@ -1,121 +1,125 @@
-const invModel = require("../models/inventory-model")
+const pool = require("../database/");
+const invModel = require("../models/inventory-model");
+const { validationResult } = require("express-validator");
 
-const Util = {}
+const Util = {};
 
-/* ***************************
- *  Build the navigation bar
- * ************************** */
+/*  Build the navigation bar */
 Util.getNav = async function () {
   try {
-    let data = await invModel.getClassifications()
-    let list = "<ul>"
-    list += '<li><a href="/" title="Home page">Home</a></li>'
+    const data = await invModel.getClassifications()
+    if (!data || !data.rows) {
+      console.error("⚠️ No classification data found in getNav()")
+      return '<ul><li><a href="/">Home</a></li></ul>'
+    }
+
+    let list = '<ul>'
+    list += '<li><a href="/">Home</a></li>'
     data.rows.forEach((row) => {
-      list += "<li>"
-      list +=
-        '<a href="/inv/type/' +
-        row.classification_id +
-        '" title="See our inventory of ' +
-        row.classification_name +
-        ' vehicles">' +
-        row.classification_name +
-        "</a>"
-      list += "</li>"
+      list += `<li><a href="/inv/type/${row.classification_id}" title="See our inventory of ${row.classification_name} vehicles">${row.classification_name}</a></li>`
     })
-    list += "</ul>"
+    list += '</ul>'
     return list
   } catch (error) {
     console.error("getNav error:", error)
-    throw error
+    return '<ul><li><a href="/">Home</a></li></ul>'
   }
 }
 
-/* ***************************
- *  Build the classification view HTML
- * ************************** */
-Util.buildClassificationGrid = async function (data) {
-  if (data.length === 0) {
-    return '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+/* Build the classification grid HTML */
+Util.buildClassificationGrid = function (data) {
+  if (!Array.isArray(data) || data.length === 0) {
+    return '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
-  let grid = '<ul id="inv-display">'
+
+  let grid = '<ul id="inv-display">';
   data.forEach((vehicle) => {
-    grid += "<li>"
-    grid +=
-      '<a href="/inv/detail/' +
-      vehicle.inv_id +
-      '" title="View ' +
-      vehicle.inv_make +
-      " " +
-      vehicle.inv_model +
-      ' details"><img src="' +
-      vehicle.inv_thumbnail +
-      '" alt="Image of ' +
-      vehicle.inv_make +
-      " " +
-      vehicle.inv_model +
-      ' on CSE Motors"></a>'
-    grid += '<div class="namePrice">'
-    grid += "<hr />"
-    grid += "<h2>"
-    grid +=
-      '<a href="/inv/detail/' +
-      vehicle.inv_id +
-      '" title="View ' +
-      vehicle.inv_make +
-      " " +
-      vehicle.inv_model +
-      ' details">' +
-      vehicle.inv_make +
-      " " +
-      vehicle.inv_model +
-      "</a>"
-    grid += "</h2>"
-    grid +=
-      "<span>$" +
-      new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
-      "</span>"
-    grid += "</div>"
-    grid += "</li>"
-  })
-  grid += "</ul>"
-  return grid
-}
+    
+    let thumbnail = vehicle.inv_thumbnail;
+    if (!thumbnail.startsWith('/images/vehicles/')) {
+      thumbnail = `/images/vehicles/${thumbnail}`;
+    }
 
-/* ***************************
- *  Build a vehicle detail view HTML
- * ************************** */
-Util.buildVehicleDetail = function (vehicle) {
-  if (!vehicle) {
-    return '<p class="notice">Sorry, vehicle details could not be found.</p>'
+    grid += `
+      <li>
+        <a href="/inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
+          <img src="${thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors">
+        </a>
+        <div class="namePrice">
+          <hr />
+          <h2>
+            <a href="/inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
+              ${vehicle.inv_make} ${vehicle.inv_model}
+            </a>
+          </h2>
+          <span>$${new Intl.NumberFormat("en-US").format(vehicle.inv_price)}</span>
+        </div>
+      </li>`;
+  });
+  grid += "</ul>";
+  return grid;
+};
+
+/* Build a vehicle detail view HTML */
+Util.buildVehicleDetail = (vehicle) => {
+  console.log("Vehicle image:", vehicle.inv_image);
+
+  return `
+    <div class="vehicle-detail-container">
+      <div>
+        <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+      </div>
+      <div>
+        <h1>${vehicle.inv_make} ${vehicle.inv_model}</h1>
+        <p><strong>Year:</strong> ${vehicle.inv_year}</p>
+        <p><strong>Price:</strong> $${new Intl.NumberFormat().format(vehicle.inv_price)}</p>
+        <p><strong>Mileage:</strong> ${new Intl.NumberFormat().format(vehicle.inv_miles)} miles</p>
+        <p>${vehicle.inv_description}</p>
+        <p><strong>Color:</strong> ${vehicle.inv_color}</p>
+      </div>
+    </div>
+  `;
+};
+
+
+
+/* Build classification  */
+Util.buildClassificationList = async function (classification_id = null) {
+  try {
+    const data = await invModel.getClassifications();
+    let classificationList = '<select name="classification_id" id="classificationList" required>';
+    classificationList += "<option value=''>Choose a Classification</option>";
+    data.rows.forEach((row) => {
+      classificationList += `<option value="${row.classification_id}"`;
+      if (classification_id != null && row.classification_id == classification_id) {
+        classificationList += " selected";
+      }
+      classificationList += `>${row.classification_name}</option>`;
+    });
+    classificationList += "</select>";
+    return classificationList;
+  } catch (error) {
+    console.error(" Error building classification list:", error);
+    return `<select name="classification_id">
+              <option value="">Error loading classifications</option>
+            </select>`;
   }
+};
 
-  const price = new Intl.NumberFormat("en-US").format(vehicle.inv_price || 0)
-  const miles = new Intl.NumberFormat("en-US").format(vehicle.inv_miles || 0)
-
-  let detail = ''
-  detail += `<section class="vehicle-detail">`
-  detail += `  <div class="vehicle-detail__image">`
-  detail += `    <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}" />`
-  detail += `  </div>`
-  detail += `  <div class="vehicle-detail__info">`
-  detail += `    <h1>${vehicle.inv_make} ${vehicle.inv_model}</h1>`
-  detail += `    <h2>${vehicle.inv_year} — <span class="price">$${price}</span></h2>`
-  detail += `    <p><strong>Mileage:</strong> ${miles} miles</p>`
-  if (vehicle.inv_description) {
-    detail += `<p>${vehicle.inv_description}</p>`
-  }
-  if (vehicle.inv_color) detail += `<p><strong>Color:</strong> ${vehicle.inv_color}</p>`
-  if (vehicle.inv_transmission) detail += `<p><strong>Transmission:</strong> ${vehicle.inv_transmission}</p>`
-  detail += `  </div>`
-  detail += `</section>`
-  return detail
-}
-
-/* ***************************
- *  Error wrapper for async route handlers
- * ************************** */
+/*  Error wrapper for async route handlers
+ */
 Util.handleErrors = (fn) => (req, res, next) => {
-  Promise.resolve(fn(req, res, next)).catch(next)
-}
+  Promise.resolve(fn(req, res, next)).catch(next);
+};
 
-module.exports = Util
+/* Build Login View */
+Util.buildLogin = async function (req, res, next) {
+  const nav = await Util.getNav();
+  res.render("account/login", {
+    title: "Login",
+    nav,
+  });
+};
+
+/* Export all utilities */
+module.exports = Util;

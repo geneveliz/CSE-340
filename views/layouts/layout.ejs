@@ -8,20 +8,43 @@
       <%- include('../partials/navigation') %>
 
       <main id="home-content">
-  <%- body %>
-</main>
+        <!-- Flash Messages -->
+        <% if (messages('info').length > 0) { %>
+          <div class="flash flash-info">
+            <% messages('info').forEach(function(message){ %>
+              <p><%= message %></p>
+            <% }); %>
+          </div>
+        <% } %>
 
+        <% if (messages('success').length > 0) { %>
+          <div class="flash flash-success">
+            <% messages('success').forEach(function(message){ %>
+              <p><%= message %></p>
+            <% }); %>
+          </div>
+        <% } %>
 
-<section id="vehicle-content" style="display:none;">
-  <h2 id="category-title" aria-live="polite"></h2>
-  <div id="vehicle-list" class="vehicle-grid"></div>
-</section>
+        <% if (messages('error').length > 0) { %>
+          <div class="flash flash-error">
+            <% messages('error').forEach(function(message){ %>
+              <p><%= message %></p>
+            <% }); %>
+          </div>
+        <% } %>
 
+        <!-- Body -->
+        <%- body %>
+      </main>
+
+      <section id="vehicle-content" style="display:none;">
+        <h2 id="category-title" aria-live="polite"></h2>
+        <div id="vehicle-list" class="vehicle-grid"></div>
+      </section>
 
       <%- include('../partials/footer') %>
     </div>
 
-    
     <script src="/js/app.js"></script>
   </body>
 </html>

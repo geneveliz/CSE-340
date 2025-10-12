@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+</head>
+<body>
+  <h1>Add New Classification</h1>
+
+  <% if (message) { %>
+    <div class="flash-message"><%= message %></div>
+  <% } %>
+
+  <% if (errors) { %>
+    <ul class="errors">
+      <% errors.forEach(function(err){ %>
+        <li><%= err.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <form id="addClassificationForm" action="/inv/add-classification" method="post" novalidate>
+    <label for="classificationName">Classification (no spaces or special characters):</label>
+    <input type="text"
+           name="classification_name"
+           id="classificationName"
+           required
+           pattern="^[A-Za-z0-9]+$"
+           title="Only letters and numbers, no spaces or special characters"
+           value="<%= typeof classification_name !== 'undefined' ? classification_name : '' %>">
+    <button type="submit">Add Classification</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('addClassificationForm')
+    form.addEventListener('submit', function (e) {
+      if (!form.checkValidity()) {
+        e.preventDefault()
+        alert('Please fix the form errors.')
+      }
+    })
+  </script>
+</body>
+</html>

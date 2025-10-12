@@ -1,11 +1,9 @@
-// public/js/vehicles.js
 const vehicles = [
   // ---------- CUSTOM ----------
   { name: 'Batmobile Custom', category: 'custom', price: 65000, img: '/images/vehicles/batmobile.jpg' },
   { name: 'FBI Surveillance Van', category: 'custom', price: 20000, img: '/images/vehicles/mystery-van.jpg' },
   { name: 'Dog Car', category: 'custom', price: 35000, img: '/images/vehicles/dog-car.jpg' },
   { name: 'Aerocar International Aerocar', category: 'custom', price: 700000, img: '/images/vehicles/aerocar.jpg' },
-  { name: 'Mystery Machine', category: 'custom', price: 10000, img: '/images/vehicles/mystery-van.jpg' },
   { name: 'Mechanic', category: 'custom', price: 25000, img: '/images/vehicles/mechanic.jpg' },
 
   // ---------- SEDAN ----------
@@ -23,8 +21,8 @@ const vehicles = [
   { name: 'Survan', category: 'truck', price: 38000, img: '/images/vehicles/survan.jpg' },
   { name: 'Monster Truck', category: 'truck', price: 150000, img: '/images/vehicles/monster-truck.jpg' },
 
-
   // ---------- SPORT ----------
   { name: 'Adventador', category: 'sport', price: 250000, img: '/images/vehicles/adventador.jpg' },
   { name: 'Delorean', category: 'sport', price: 95000, img: '/images/vehicles/delorean.jpg' }
 ];
+
