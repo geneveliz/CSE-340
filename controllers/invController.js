@@ -18,7 +18,7 @@ async function buildManagementView(req, res, next) {
   }
 }
 
-// View classification
+// View buildByClassificationId
 async function buildByClassificationId(req, res) {
   const classificationId = parseInt(req.params.classificationId);
   if (isNaN(classificationId)) {
@@ -77,7 +77,7 @@ async function buildByInvId(req, res, next) {
 }
 
 
-// Show classification
+// Show buildAddClassification
 async function buildAddClassification(req, res, next) {
   try {
     const message = req.flash("message");
@@ -95,7 +95,7 @@ async function buildAddClassification(req, res, next) {
   }
 }
 
-// Classification form
+// form addClassification
 async function addClassification(req, res, next) {
   try {
     const errors = validationResult(req);
@@ -126,7 +126,7 @@ async function addClassification(req, res, next) {
 
 
 
-// Show from to add vehicle
+// add vehicle buildAddInventory
 async function buildAddInventory(req, res, next) {
   try {
     const classificationList = await utilities.buildClassificationList();
@@ -155,7 +155,7 @@ async function buildAddInventory(req, res, next) {
   }
 }
 
-// Vehicle form
+// Vehicle form addInventory
 async function addInventory(req, res, next) {
   try {
     const errors = validationResult(req);

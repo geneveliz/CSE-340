@@ -1,7 +1,7 @@
 const pool = require('../database') 
 
 /* ***************************
- *  Get all classification data
+ *  classification data
  * ************************** */
 async function getClassifications() {
   try {
@@ -16,7 +16,7 @@ async function getClassifications() {
 }
 
 /* ***************************
- *  Add a new classification
+ * new classification
  * ************************** */
 async function addClassification(classification_name) {
   try {
@@ -30,7 +30,7 @@ async function addClassification(classification_name) {
 }
 
 /* ***************************
- *  items by classification_id
+ *  classification_id
  * ************************** */
 async function getInventoryByClassificationId(classification_id) {
   try {
@@ -50,7 +50,7 @@ async function getInventoryByClassificationId(classification_id) {
 }
 
 /* ***************************
- *  single inventory item by inv_id
+ *  item by inv_id
  * ************************** */
 async function getVehicleById(inv_id) {
   try {

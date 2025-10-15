@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator");
 
 const Util = {};
 
-/*  Build the navigation bar */
+/*  navigation bar */
 Util.getNav = async function () {
   try {
     const data = await invModel.getClassifications()
@@ -26,7 +26,7 @@ Util.getNav = async function () {
   }
 }
 
-/* Build the classification grid HTML */
+/* classification grid HTML */
 Util.buildClassificationGrid = function (data) {
   if (!Array.isArray(data) || data.length === 0) {
     return '<p class="notice">Sorry, no matching vehicles could be found.</p>';
@@ -46,7 +46,7 @@ Util.buildClassificationGrid = function (data) {
           <img src="${thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors">
         </a>
         <div class="namePrice">
-          <hr />
+          <hr>
           <h2>
             <a href="/inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
               ${vehicle.inv_make} ${vehicle.inv_model}
@@ -60,7 +60,7 @@ Util.buildClassificationGrid = function (data) {
   return grid;
 };
 
-/* Build a vehicle detail view HTML */
+/* vehicle detail view HTML */
 Util.buildVehicleDetail = (vehicle) => {
   console.log("Vehicle image:", vehicle.inv_image);
 
@@ -112,7 +112,7 @@ Util.handleErrors = (fn) => (req, res, next) => {
   Promise.resolve(fn(req, res, next)).catch(next);
 };
 
-/* Build Login View */
+/* Login View */
 Util.buildLogin = async function (req, res, next) {
   const nav = await Util.getNav();
   res.render("account/login", {
@@ -121,5 +121,5 @@ Util.buildLogin = async function (req, res, next) {
   });
 };
 
-/* Export all utilities */
+/* all utilities */
 module.exports = Util;
