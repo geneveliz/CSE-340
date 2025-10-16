@@ -20,6 +20,7 @@ router.post(
 
 // Inventory ((GET))
 router.get('/add-inventory', utilities.handleErrors(invController.buildAddInventory));
+router.get('/inventory/detail/:invId', invController.buildByInvId);
 
 // Inventory (POST)
 router.post(

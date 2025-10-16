@@ -1,0 +1,17 @@
+<h2>My Favorite Cars</h2>
+
+<% if (favorites.length > 0) { %>
+  <ul>
+    <% favorites.forEach(car => { %>
+      <li>
+        <strong><%= car.inv_make %> <%= car.inv_model %> - <%= car.inv_year %></strong>
+        <a href="/inventory/detail/<%= car.inv_id %>">View Details</a>
+        <form method="POST" action="/favorites/remove/<%= car.inv_id %>" style="display:inline;">
+          <button type="submit">Remove</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+<% } else { %>
+  <p>You haven't added any cars to your favorites yet.</p>
+<% } %>

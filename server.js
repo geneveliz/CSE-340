@@ -1,11 +1,11 @@
-/* ******************************************
+/*******************************************
  * This server.js file is the primary file of the 
  * application. It is used to control the project.
  *******************************************/
 
 require('dotenv').config();
 
-/* Required -  Modules*/
+/* Required -  Modules */
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -17,36 +17,40 @@ const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
 
 /* Custom - Modules */
-const utilities = require("./utilities");
 const pool = require("./database/");
+const utilities = require("./utilities");
 const baseController = require("./controllers/baseController");
 const invController = require("./controllers/invController");
+const inventoryRoutes = require('./routes/inventoryRoute');
+
 const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require("./routes/accountRoute");
 const errorRoute = require("./routes/errorRoute");
+const noteRoutes = require("./routes/noteRoutes");
+const favoriteRoutes = require("./routes/favoriteRoutes");
+const adminRoutes = require('./routes/adminRoutes');
 
-/* App Configuration */
 const app = express();
 
-// View engine
+/* View engine */
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("layout", "./layouts/layout");
 
-// Static files
+/* Static files */
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(path.join(__dirname, "/public/images")));
 app.use("/css", express.static(path.join(__dirname, "/public/css")));
 app.use("/js", express.static(path.join(__dirname, "/public/js")));
 
-// Body  - parser
+/* Body parser */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Cookie - parser
+/* Cookie parser */
 app.use(cookieParser());
 
-// Session - management
+/* Session management */
 const sessionSecret = process.env.SESSION_SECRET || "defaultsecret";
 app.use(
   session({
@@ -61,14 +65,14 @@ app.use(
   })
 );
 
-// messages
+/* Flash messages */
 app.use(flash());
 app.use(function (req, res, next) {
   res.locals.messages = messages(req, res);
   next();
 });
 
-/* Inject JWT login state into all views */
+/* ✅ Inject JWT login state into all views */
 const jwtSecret = process.env.JWT_SECRET || "defaultjwtsecret";
 app.use((req, res, next) => {
   const token = req.cookies.jwt;
@@ -79,8 +83,8 @@ app.use((req, res, next) => {
       res.locals.loggedIn = true;
       res.locals.firstname = decoded.firstname;
       res.locals.account_type = decoded.account_type;
-      res.locals.decodedToken = decoded; 
-      req.user = decoded; 
+      res.locals.decodedToken = decoded;
+      req.user = decoded;
     } catch (err) {
       console.log("JWT error:", err.message);
       res.locals.loggedIn = false;
@@ -97,7 +101,7 @@ app.use((req, res, next) => {
   next();
 });
 
-/* Inject nav menu */
+/* Inject nav menu JWT middleware) */
 app.use(async (req, res, next) => {
   try {
     const nav = await utilities.getNav();
@@ -108,22 +112,22 @@ app.use(async (req, res, next) => {
   }
 });
 
-/* Route Definitions */
+/* ✅ Route Definitions */
+app.use("/admin", adminRoutes);
+app.use("/account", accountRoute);
+app.use("/notes", noteRoutes);        
+app.use("/favorites", favoriteRoutes); 
+app.use("/error", errorRoute);
+app.use("/inventory", inventoryRoute);
 app.get("/", utilities.handleErrors(baseController.buildHome));
 app.get("/inv/type/:classificationId", invController.buildByClassificationId);
-
-app.use("/inv", inventoryRoute);
-app.use("/account", accountRoute);
-app.use("/error", errorRoute);
-
-/* Error Handlers */
-
-// Not found 404
+app.use('/inv', inventoryRoute);
+/* Not found 404 */
 app.use(async (req, res, next) => {
   next({ status: 404, message: "Sorry, we appear to have lost that page." });
 });
 
-// Express (Error handler)
+/* Error Handler */
 app.use(async (err, req, res, next) => {
   const nav = await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);

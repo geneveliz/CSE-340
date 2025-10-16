@@ -1,4 +1,3 @@
-
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -6,8 +5,7 @@ const accountModel = require("../models/account-model");
 const utilities = require("../utilities");
 
 
-// Render view login
-
+// login view
 async function buildLogin(req, res, next) {
   try {
     const nav = await utilities.getNav();
@@ -23,8 +21,8 @@ async function buildLogin(req, res, next) {
   }
 }
 
-// Render view register
 
+// registration view
 async function buildRegister(req, res, next) {
   try {
     const nav = await utilities.getNav();
@@ -43,7 +41,7 @@ async function buildRegister(req, res, next) {
 }
 
 
-// View new account
+// Create new account
 async function registerAccount(req, res, next) {
   try {
     const nav = await utilities.getNav();
@@ -63,11 +61,15 @@ async function registerAccount(req, res, next) {
 
     const hashedPassword = await bcrypt.hash(req.body.account_password, 10);
 
+    // Default account type is 'client' - not admin
+    const accountType = 'client';
+
     const regResult = await accountModel.registerAccount(
       req.body.account_firstname,
       req.body.account_lastname,
       req.body.account_email,
-      hashedPassword
+      hashedPassword,
+      accountType
     );
 
     if (regResult?.rowCount === 1) {
@@ -95,8 +97,7 @@ async function registerAccount(req, res, next) {
 }
 
 
-// user login process
-
+// Handle login process
 async function loginAccount(req, res, next) {
   try {
     const nav = await utilities.getNav();
@@ -151,8 +152,7 @@ async function loginAccount(req, res, next) {
 }
 
 
-// Principal view account
-
+// account management dashboard
 async function buildAccountManagement(req, res, next) {
   try {
     const nav = await utilities.getNav();
@@ -179,8 +179,7 @@ async function buildAccountManagement(req, res, next) {
 }
 
 
-// View update account
-
+// account update view
 async function getUpdateView(req, res, next) {
   try {
     const account = await accountModel.getAccountById(req.params.id);
@@ -196,8 +195,7 @@ async function getUpdateView(req, res, next) {
 }
 
 
-// update data
-
+// Update account information
 async function updateAccountInfo(req, res, next) {
   try {
     const { account_id, firstname, lastname, email } = req.body;
@@ -216,8 +214,7 @@ async function updateAccountInfo(req, res, next) {
 }
 
 
-// Update password
-
+// Update account password
 async function updatePassword(req, res, next) {
   try {
     const { account_id, password } = req.body;
@@ -237,8 +234,24 @@ async function updatePassword(req, res, next) {
 }
 
 
-// Logout
+// password update form
+async function buildPasswordUpdateForm(req, res, next) {
+  try {
+    const nav = await utilities.getNav();
+    res.render('account/update-password', {
+      title: 'Change Password',
+      nav,
+      errors: null,
+      notice: req.flash('notice'),   
+      account: { account_id: req.params.id }  
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
+
+// Logout the user
 function logoutAccount(req, res) {
   res.clearCookie("jwt");
   req.flash("notice", "You have been logged out.");
@@ -255,4 +268,5 @@ module.exports = {
   updatePassword,
   loginAccount,
   logoutAccount,
+  buildPasswordUpdateForm,
 };

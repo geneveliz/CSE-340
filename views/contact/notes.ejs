@@ -1,0 +1,19 @@
+<h2>My Car Notes</h2>
+
+<form method="POST" action="/notes/add">
+  <label for="carId">Car ID:</label>
+  <input type="number" name="carId" required>
+
+  <label for="content">Note:</label>
+  <textarea name="content" required></textarea>
+
+  <button type="submit">Add Note</button>
+</form>
+
+<ul>
+  <% notes.forEach(note => { %>
+    <li>
+      <strong><%= note.inv_make %> <%= note.inv_model %></strong>: <%= note.content %>
+    </li>
+  <% }) %>
+</ul>

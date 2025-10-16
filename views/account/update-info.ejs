@@ -1,0 +1,32 @@
+
+<h1>Update Account Information</h1>
+
+<% if (notice && notice.length > 0) { %>
+  <p class="notice"><%= notice %></p>
+<% } %>
+
+<% if (errors && errors.length > 0) { %>
+  <ul class="errors">
+    <% errors.forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<form action="/account/update-info" id="UpdateinfoForm" method="POST">
+  <input type="hidden" name="account_id" value="<%= account.account_id %>" />
+
+  <label for="firstname">First Name:</label>
+  <input type="text" id="firstname" name="firstname" value="<%= account.account_firstname %>" required />
+
+  <label for="lastname">Last Name:</label>
+  <input type="text" id="lastname" name="lastname" value="<%= account.account_lastname %>" required />
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" value="<%= account.account_email %>" required />
+
+  <label for="password">New Password:</label>
+  <input type="password" id="password" name="password" required />
+
+  <button type="submit">Update Info</button>
+</form>

@@ -1,11 +1,11 @@
-/* ===== Reset & Box Model ===== */
+/*  Reset & Box Model  */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ===== Base ===== */
+/*  Base  */
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: #333;
@@ -16,7 +16,248 @@ body {
   padding: 20px;
 }
 
-/* ===== Wrapper ===== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/*  Login Form Styles  */
+form#formLoginAcc {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #f8d2d2;
+  border-radius: 5px;
+  border: 1.5px solid #3a3636;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form#formLoginAcc label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+form#formLoginAcc input[type="text"],
+form#formLoginAcc input[type="email"],
+form#formLoginAcc input[type="password"],
+form#formLoginAcc textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1.5px solid #0e0d0d;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+form#formLoginAcc input[type="text"]:focus,
+form#formLoginAcc input[type="email"]:focus,
+form#formLoginAcc input[type="password"]:focus,
+form#formLoginAcc textarea:focus {
+  border-color: #fa9393;
+  outline: none;
+  border: 1.5px solid #0e0d0d;
+}
+
+form#formLoginAcc button,
+form#formLoginAcc button[type="submit"] {
+  display: inline-block;
+  background-color: #da8766;
+  color: rgb(0, 0, 0);
+  padding: 12px 24px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form#formLoginAcc button:hover,
+form#formLoginAcc button[type="submit"]:hover {
+  background-color: #f35b2d;
+}
+
+/*  Register Form Styles  */
+form#register-Form {
+  max-width: 450px;
+  margin: 25px auto;
+  padding: 20px;
+  background-color: #fcbfb0;
+  border-radius: 10px;
+  border: 1.5px solid #ceb7ab;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form#register-Form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #020202;
+}
+
+form#register-Form input[type="text"],
+form#register-Form input[type="email"],
+form#register-Form input[type="password"],
+form#register-Form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border: 1.5px solid #000000;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+form#register-Form input[type="text"]:focus,
+form#register-Form input[type="email"]:focus,
+form#register-Form input[type="password"]:focus,
+form#register-Form textarea:focus {
+  border-color: #030303;
+  outline: none;
+}
+
+form#register-Form button,
+form#register-Form button[type="submit"] {
+  display: inline-block;
+  background-color: #da8766;
+  color: rgb(0, 0, 0);
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form#register-Form button:hover,
+form#register-Form button[type="submit"]:hover {
+  background-color: #f35b2d;
+}
+
+
+/*  Info Update Styles  */
+form#UpdateinfoForm {
+  max-width: 450px;
+  margin: 30px auto;
+  padding: 25px;
+  background-color: #fcbfb0;
+  border-radius: 8px;
+  border: 1.8px solid #000000;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form#UpdateinfoForm label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #000000;
+}
+
+form#UpdateinfoForm input[type="text"],
+form#UpdateinfoForm input[type="email"],
+form#UpdateinfoForm input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border: 1.5px solid #000000;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+form#UpdateinfoForm input[type="text"]:focus,
+form#UpdateinfoForm input[type="email"]:focus,
+form#UpdateinfoForm input[type="password"]:focus {
+  border-color: #000000;
+  outline: none;
+}
+
+form#UpdateinfoForm button,
+form#UpdateinfoForm button[type="submit"] {
+  display: inline-block;
+  background-color: #da8766;
+  color: rgb(0, 0, 0);
+  padding: 14px 26px;
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form#UpdateinfoForm button:hover,
+form#UpdateinfoForm button[type="submit"]:hover {
+  background-color: #d88166;
+}
+
+/*  Password Form Styles  */
+form#UpdatePasswordform {
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fcbfb0;
+  border-radius: 8px;
+  border: 1.5px solid #e4d0d0;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form#UpdatePasswordform label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #000000;
+}
+
+form#UpdatePasswordform input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1.5px solid #000000;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+form#UpdatePasswordform input[type="password"]:focus {
+  border-color: #000000;
+  outline: none;
+}
+
+form#UpdatePasswordform button,
+form#UpdatePasswordform button[type="submit"] {
+  display: inline-block;
+  background-color: #da8766;
+  color: rgb(0, 0, 0);
+  padding: 12px 26px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form#UpdatePasswordform button:hover,
+form#UpdatePasswordform button[type="submit"]:hover {
+  background-color: #e06a45;
+}
+
+/*  Wrapper  */
 #wrapper {
   max-width: 960px;
   width: 100%;
@@ -25,7 +266,7 @@ body {
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
 
-/* ===== Header ===== */
+/*  Header  */
 header {
   display: flex;
   justify-content: space-between;
@@ -44,7 +285,7 @@ header a {
   text-decoration: none;
 }
 
-/* ===== Navigation ===== */
+/*  Navigation  */
 nav {
   background-color: #1e1d29;
 }
@@ -72,7 +313,7 @@ nav ul li a:hover {
   color: #fff;
 }
 
-/* ===== HERO: overlay on image (single, unified rules) ===== */
+/*  HERO  */
 .hero {
   position: relative;
   margin: 1rem 0;
@@ -87,7 +328,6 @@ nav ul li a:hover {
   border-radius: 4px;
 }
 
-/* Overlay box with title, features and button */
 .hero-text {
   position: absolute;
   top: 18%;
@@ -118,7 +358,6 @@ nav ul li a:hover {
   color: #333;
 }
 
-/* Own Today button inside overlay */
 .hero-text .btn-own {
   display: inline-block;
   margin-top: 0.6rem;
@@ -135,7 +374,7 @@ nav ul li a:hover {
   background-color: #007a9e;
 }
 
-/* ===== Inventory Management ===== */
+/*  Inventory Management  */
 .management-options {
   margin: 2rem 0;
   text-align: center;
@@ -163,65 +402,9 @@ nav ul li a:hover {
   background-color: #007a9e;
 }
 
-
-/* Classification */
-#addClassificationForm {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #04beaf;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  font-family: Arial, sans-serif;
-}
-
-#addClassificationForm label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: #333;
-}
-
-#addClassificationForm input[type="text"] {
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
-  border: 1px solid #bbb;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-bottom: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-#addClassificationForm input[type="text"]:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 4px rgba(0,123,255,0.5);
-}
-
-#addClassificationForm button {
-  background-color: #007bff;
-  color: rgb(3, 3, 3);
-  border: none;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.25s ease;
-}
-
-#addClassificationForm button:hover {
-  background-color: #0056b3;
-}
-
-#addClassificationForm button:active {
-  background-color: #00408d;
-}
-
-
-/* ===== Vehicle Detail Page ===== */
-.vehicle-detail {
+/*  Vehicle Detail  */
+.vehicle-detail,
+.vehicle-detail-container {
   margin: 2rem 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -229,47 +412,7 @@ nav ul li a:hover {
   align-items: start;
 }
 
-.vehicle-detail img {
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.vehicle-info h2 {
-  font-size: 1.8rem;
-  margin-bottom: 0.4rem;
-  color: #00a0d6;
-}
-
-.vehicle-info p {
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-}
-
-.vehicle-info strong {
-  color: #222;
-}
-
-/* Responsive vehicle detail layout */
-@media (max-width: 768px) {
-  .vehicle-detail {
-    grid-template-columns: 1fr;
-  }
-  .vehicle-info {
-    text-align: center;
-  }
-}
-
-/* ===== Vehicle Detail ===== */
-.vehicle-detail-container {
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  align-items: start;
-}
-
+.vehicle-detail img,
 .vehicle-detail-container img {
   width: 100%;
   border-radius: 8px;
@@ -277,31 +420,45 @@ nav ul li a:hover {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.vehicle-detail-container h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+.vehicle-detail-container h1,
+.vehicle-info h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.4rem;
   color: #00a0d6;
 }
 
-.vehicle-detail-container p {
-  font-size: 1rem;
-  margin-bottom: 0.6rem;
+.vehicle-detail-container h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-.vehicle-detail-container strong {
+.vehicle-detail-container p,
+.vehicle-info p {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.vehicle-detail-container strong,
+.vehicle-info strong {
   color: #222;
 }
 
+.vehicle-detail-container p {
+  margin-bottom: 0.6rem;
+}
+
+/* Responsive vehicle detail layout */
 @media (max-width: 768px) {
+  .vehicle-detail,
   .vehicle-detail-container {
     grid-template-columns: 1fr;
   }
+  .vehicle-info {
+    text-align: center;
+  }
 }
 
-
-
-
-/* ===== Delorean Section  ===== */
+/*  Delorean Section  */
 .delorean-section {
   margin-top: 2rem;
   display: grid;
@@ -309,7 +466,6 @@ nav ul li a:hover {
   gap: 2rem;
 }
 
-/* Upgrades grid */
 .upgrades ul {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -344,7 +500,7 @@ nav ul li a:hover {
   margin-bottom: 0.5rem;
 }
 
-/* ===== Vehicle Grid ===== */
+/*  Vehicle Grid  */
 .vehicle-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -392,8 +548,7 @@ nav ul li a:hover {
   margin-top: auto; 
 }
 
-
-/* ===== Footer ===== */
+/*  Footer  */
 footer {
   margin-top: 2rem;
   font-size: 0.8rem;
@@ -401,110 +556,9 @@ footer {
   color: #555;
 }
 
-/* ===== Form Styles ===== */
-form {
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #15d897;
-}
-
-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-
-form input[type="text"],
-form input[type="email"],
-form input[type="password"] {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #bbb;
-  border-radius: 3px;
-  box-sizing: border-box;
-}
-
-form button {
-  background-color: #007bff;
-  color: rgb(0, 0, 0);
-  border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-form button:hover {
-  background-color: #0056b3;
-}
-
-/* ===== Error Message ===== */
-.error {
-  color: red;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-}
-
-/* ===== Flash Messages ===== */
-.flash-message {
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.flash-message.info {
-  background-color: #d9edf7;
-  color: #31708f;
-}
-
-.flash-message.success {
-  background-color: #dff0d8;
-  color: #3c763d;
-}
-
-.flash-message.error {
-  background-color: #f2dede;
-  color: #a94442;
-}
-
-.flash {
-  padding: 1rem;
-  margin: 1rem auto;
-  border-radius: 5px;
-  width: 90%;
-  max-width: 600px;
-  font-weight: bold;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.flash-info {
-  background-color: #d9edf7;
-  color: #31708f;
-  border: 1px solid #bce8f1;
-}
-
-.flash-success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.flash-error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-
-/* ===== Login Styles ===== */
+/*  Login Styles  */
 .login-container {
-  background-color: #0863b8;
+  background-color: #08b2b8;
   width: 350px;
   padding: 20px 25px;
   border-radius: 6px;
@@ -564,7 +618,7 @@ form button:hover {
   color: #ddd;
 }
 
-/* ===== Responsive rules ===== */
+/*  Responsive rules  */
 @media (max-width: 768px) {
   nav ul li a {
     padding: 0.6rem 1rem;
@@ -574,7 +628,7 @@ form button:hover {
     grid-template-columns: 1fr;
   }
 
-  /* Switch to a two-column */
+  /* Hero layout changes */
   .hero {
     display: flex;
     align-items: center;
@@ -602,9 +656,8 @@ form button:hover {
   }
 }
 
-/* ===== Extra small screens (phones) ===== */
+/*  Extra small screens (phones)  */
 @media (max-width: 480px) {
-  
   .hero {
     display: flex;
     flex-direction: column;
@@ -628,3 +681,6 @@ form button:hover {
     box-shadow: none;
   }
 }
+
+
+
